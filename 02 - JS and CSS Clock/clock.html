@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clock</title>
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+
+  <style>
+    html {
+      background:black url('https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F09%2Fjason-freeny-plastic-surgeon-4.jpg?q=75&w=800&cbr=1&fit=max') center;;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display:flex;
+      flex:1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border:20px solid white;
+      border-radius:50%;
+      margin:50px auto;
+      position: relative;
+      padding:2rem;
+      background: rgba(0, 0, 0, 0.3);
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .clock-face::after{
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      background-color: white;
+    }
+
+    .hand {
+      width:50%;
+      height:6px;
+      background:black;
+      position: absolute;
+      top:50%;
+      left: 50%;
+      transform-origin: right center;
+      transform: rotate(90deg);
+      transition: all 0s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+    .hour-hand{
+        width: 150px;
+        height: 10px;
+        background-color: white;
+    }
+
+    .min-hand{
+      width: 200px;
+      height: 6px;
+      background-color: white;
+    }
+
+    .second-hand{
+      background-color: red;
+      height: 2px;
+    }
+</style>
+
+<script>
+
+const secondsHand = document.querySelector('.second-hand');
+const minsHand = document.querySelector('.min-hand');
+const hoursHand = document.querySelector('.hour-hand');
+
+
+  
+
+   
+// function setClock() {
+//     const currentTime = new Date();
+
+//     const currentTimeSeconds = currentTime.getSeconds();
+//     const currentTimeMins = currentTime.getMinutes();
+//     const currentTimeHours = currentTime.getHours();
+
+//     const currentTimeSecondsDeg = ((currentTimeSeconds/60)*360)+90;
+//     const currentTimeMinsDeg = ((currentTimeMins/60)*360)+((currentTimeSeconds/60)*6)+90;
+//     const currentTimeHoursDeg = ((currentTimeHours/12)*360)+((currentTimeMins/60)*30)+90;
+
+//     // console.log(`h`,currentTimeHoursDeg);
+//     // console.log(`s`,currentTimeSecondsDeg);
+//     // console.log(`m`,currentTimeMinsDeg);
+
+//     secondsHand.style.transform = `rotate(${currentTimeSecondsDeg}deg)`;
+//     minsHand.style.transform = `rotate(${currentTimeMinsDeg}deg)`;
+//     hoursHand.style.transform = `rotate(${currentTimeHoursDeg}deg)`;
+
+// }
+
+// setInterval(setClock,1000);
+// setClock();
+
+function updateClock(){    
+
+  const currentTime = new Date();
+
+    const currentTimeSeconds = currentTime.getSeconds();
+    const currentTimeMins = currentTime.getMinutes();
+    const currentTimeHours = currentTime.getHours();
+
+    const currentTimeSecondsDeg = (currentTimeSeconds*6)+90;
+    const currentTimeMinsDeg = (currentTimeMins*6)+((currentTimeSeconds/60)*6)+90;
+    const currentTimeHoursDeg = (currentTimeHours*30)+((currentTimeMins/60)*30)+((currentTimeSeconds/3600)*30)+90;
+
+    secondsHand.style.transform = `translate(-100%,-50%) rotate(${currentTimeSecondsDeg}deg)`;
+    minsHand.style.transform = `translate(-100%,-50%) rotate(${currentTimeMinsDeg}deg)`;
+    hoursHand.style.transform = `translate(-100%,-50%) rotate(${currentTimeHoursDeg}deg)`;
+  
+};
+  
+// function setRotate(deg){
+//   if (deg === 0){
+//     document.querySelector('.hand').style.transition = 'all 0s';
+//   }else{
+//     document.querySelector('.hand').style.transition = 'all 0.05s';
+//   }
+//   return`rotate(${deg}deg)`;
+//   console.log(`bug`,setRotate)
+// }
+//   setRotate();
+  setInterval(updateClock,1000);
+  updateClock();
+
+
+  
+</script>
+</body>
+</html>
+
